@@ -28,6 +28,7 @@ namespace benchmark_itextsharp_pdf_from_html_code
         private Instruction MakeInstruction()
         {
             var i = new Instruction();
+            i.Type = this.ParseType();
             return i;
         }
 
@@ -37,6 +38,11 @@ namespace benchmark_itextsharp_pdf_from_html_code
             switch (tag)
             {
                 case "P":
+                    return InstructionType.Paragraph;
+                case "IMG":
+                    return InstructionType.Image;
+                case "TABLE":
+                    return InstructionType.Table;
                 default:
                     throw new ArgumentOutOfRangeException(tag);
             }

@@ -42,12 +42,9 @@ namespace benchmark_itextsharp_pdf_from_html_code
             if (node.ChildNodes == null || !node.ChildNodes.Any()) { return instructions; }
 
             foreach (var child in node.ChildNodes) {
-                instructions.Add(new InstructionBuilder()
-                    .WithNode(child)
-                    .Build());
-
-                instructions.AddRange(
-                    ReadInstructions(child));
+                var i = new InstructionBuilder().WithNode(child).Build();
+                foreach (var ci in ReadInstructions(child)) { i.Childreen.Add(ci); }
+                instructions.Add(i);
             }
             return instructions;
         }
